@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:messaging_app/pages/ehr_page.dart";
 import "package:messaging_app/services/auth/auth_service.dart";
 import "package:messaging_app/pages/settings_page.dart";
 
@@ -38,6 +39,18 @@ class MyDrawer extends StatelessWidget {
                   leading: const Icon(Icons.home),
                   onTap: () {
                     Navigator.pop(context);
+                  }
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: ListTile(
+                  title: const Text("E H R"),
+                  leading: const Icon(Icons.edit_document),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => EHRPage()));
                   }
                 ),
               ),
