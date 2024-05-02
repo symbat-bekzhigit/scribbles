@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:messaging_app/components/user_title.dart';
 import 'package:messaging_app/pages/ehr_view.dart';
 import 'package:messaging_app/services/ehr/ehr_service.dart';
 
@@ -12,7 +13,10 @@ class EHRPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(  
       appBar: AppBar(
-        title: const Text('Health Records'),  
+        title: const Text('Health Records'),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.grey,
+        elevation: 0  
       ),
 
 
@@ -34,11 +38,6 @@ class EHRPage extends StatelessWidget {
             );
           }
 
-
-
-
-
-
           return ListView(
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               
@@ -47,26 +46,16 @@ class EHRPage extends StatelessWidget {
               List<String> fullName = [data["lastName"], data["firstName"]];
               String displayName = fullName.join(", ");
 
-              return ListTile(
-                title: Text(displayName),
-                onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>  EHRView(
-                        patientID: data["patientID"],
-                      )
-                      )
-                  );
-
-                }
-              );
+              return UserTile(
+                  text: displayName,
+                  onTap: (){
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) =>  EHRView(patientID: data["patientID"],))
+                    );
+                  }
+                );
             }).toList(),
           );
-
-
-
-
 
         },
       ),
