@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:chat_gpt_api/chat_gpt.dart';
+import 'package:http/http.dart' as http;
 
 class AIPage extends StatefulWidget {
   final String category;
@@ -18,42 +18,66 @@ class AIPage extends StatefulWidget {
 
 class _AIPageState extends State<AIPage> {
   String _response = 'Press the button to get a response';
-  late ChatGPT chatGpt;
 
-  @override
-  void initState() {
-    super.initState();
-    chatGpt = ChatGPT.builder(
-      token: "",
+  Future<String?> fetchChatGPTCompletion(String prompt) async {
+    final String apiKey = 'sk-proj-fVfmA18UYVdQC9ABxm75T3BlbkFJxKbOAKpf6Xdwey1m4HP6';
+    final String model = 'gpt-3.5-turbo-instruct';
+    final String endpoint = 'https://api.openai.com/v1/completions';
+    final Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $apiKey',
+    };
+
+    final Map<String, dynamic> body = {
+      'model': model,
+      'prompt': prompt,
+      'max_tokens': 250, 
+    };
+
+    final response = await http.post(
+      Uri.parse(endpoint),
+      headers: headers,
+      body: jsonEncode(body),
     );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      final String? completion =
+          jsonResponse['choices'][0]['text']; 
+      return completion;
+    } else {
+      // print('Response status: ${response.statusCode}');
+      // print('Response body: ${response.body}');
+      throw Exception('Failed to load completion');
+    }
   }
 
   void _getGPTResponse() async {
-    String prompt = json.encode(widget.ehrData) + widget.category;
-    prompt = "What is the diagnosis for this patient?";
-    try {
-      Completion? completion = await chatGpt.textCompletion(
-        request: CompletionRequest(
-          prompt: prompt,
-          maxTokens: 256,
-        ),
-      );
 
-      if (completion != null && completion.choices!.isNotEmpty) {
-        setState(() {
-          _response = completion.choices!.first.text!.trim();
-        });
-      }else {
-        setState(() {
-          _response = "No completion found.";
-        });
-      }
+    String prompt = "";
+
+    if (widget.category == "Summarize"){
+      prompt = "Can you make 3 sentences maximum in A PARAGRAPH mentioning ONLY the name, blood type, known medical conditions and allergies mentioned here, NO OTHER INFORMATION: ${widget.ehrData["firstName"]}, ${widget.ehrData["lastName"]}, ${widget.ehrData["bloodType"]}, ${widget.ehrData["knownMedicalConditions"]}, ${widget.ehrData["allergies"]}}";
+    }
+
+    if (widget.category == "AI Analysis"){
+      prompt = "Can you make 3 sentences maximum in A PARAGRAPH analyzing ONLY, AND I REPEAT ONLY, the known medical conditions, NO OTHER INFORMATION: ${widget.ehrData["firstName"]}, ${widget.ehrData["knownMedicalConditions"]}";
+    }
+    
+    try {
+      final String? completion = await fetchChatGPTCompletion(prompt);
+      setState(() {
+        _response = completion ?? "No completion";
+      });
     } catch (e) {
       setState(() {
         _response = "Failed to get response: $e";
       });
     }
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {

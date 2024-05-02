@@ -53,7 +53,7 @@ class EHRView extends StatelessWidget {
           children: [
         
             Container(
-              color: Theme.of(context).colorScheme.primary,  // Change this to your preferred color
+              color: Theme.of(context).colorScheme.primary, 
               padding: EdgeInsets.only(top: 10, bottom: 10),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -224,7 +224,7 @@ class EHRView extends StatelessWidget {
               child: Table(
                 children: [
                   TableRow(children: [
-                    Text("Myopic - wears glasses to correct his vision."),
+                    Text(data["knownMedicalConditions"]),
                   ]),
                 ]
               ),
@@ -239,7 +239,7 @@ class EHRView extends StatelessWidget {
               child: Table(
                 children: [
                   TableRow(children: [
-                    Text("Penicillin"),
+                    Text(data["allergies"]),
                   ]),
                 ]
               ),
