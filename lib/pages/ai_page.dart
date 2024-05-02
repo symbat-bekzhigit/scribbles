@@ -24,7 +24,7 @@ class _AIPageState extends State<AIPage> {
   void initState() {
     super.initState();
     chatGpt = ChatGPT.builder(
-      token: "sk-proj-1jRZbz5ZOV9XLBRrOM5ZT3BlbkFJekutbeLfoo1HOxCQEY6j",
+      token: "",
     );
   }
 
