@@ -20,7 +20,7 @@ class _AIPageState extends State<AIPage> {
   String _response = 'Press the button to get a response';
 
   Future<String?> fetchChatGPTCompletion(String prompt) async {
-    final String apiKey = ''; // add api key here, can't push with it.
+    final String apiKey = 'sk-proj-fobFglPNavxy7pdon3pQT3BlbkFJScG4WHSeUJVSSiMFSQqP'; // add api key here, can't push with it.
     final String model = 'gpt-3.5-turbo-instruct';
     final String endpoint = 'https://api.openai.com/v1/completions';
     final Map<String, String> headers = {

@@ -5,8 +5,8 @@ import "package:messaging_app/pages/chat_page.dart";
 import "package:messaging_app/services/auth/auth_service.dart";
 import "package:messaging_app/services/chat/chat_service.dart";
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class ChatHomePage extends StatelessWidget {
+  ChatHomePage({super.key});
 
   final ChatService _chatService = ChatService();
   final AuthService _authService = AuthService();

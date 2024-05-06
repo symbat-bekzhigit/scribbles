@@ -1,7 +1,14 @@
+import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
+import "package:messaging_app/pages/chat_page.dart";
+import "package:messaging_app/pages/chathome_page.dart";
 import "package:messaging_app/pages/ehr_page.dart";
+import "package:messaging_app/pages/login_page.dart";
+import "package:messaging_app/pages/register_page.dart";
+import "package:messaging_app/pages/welcome_page.dart";
 import "package:messaging_app/services/auth/auth_service.dart";
 import "package:messaging_app/pages/settings_page.dart";
+import "package:messaging_app/pages/reminder_page.dart";
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -39,6 +46,28 @@ class MyDrawer extends StatelessWidget {
                   leading: const Icon(Icons.home),
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomePage()));
+                  }
+                ),
+              ),
+              
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: ListTile(
+                  title: const Text("R E M I N D E R"),
+                  leading: const Icon(Icons.notifications), // Changed the icon to notifications
+                  onTap: () {
+                    Navigator.pop(context); // Close the drawer
+                    User? user = AuthService().getCurrentUser();
+                    if (user != null) {
+                      // If user is not null, navigate to ReminderPage with userId
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ReminderPage(userID: user.uid)));
+                    } else {
+                      // If no user is signed in, navigate to the LoginPage with the necessary onTap function
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage(onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage(onTap: () {  },))); // Assuming RegisterPage handles registrations
+                      })));
+                    }
                   }
                 ),
               ),
@@ -51,6 +80,18 @@ class MyDrawer extends StatelessWidget {
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.push(context, MaterialPageRoute(builder: (context) => EHRPage()));
+                  }
+                ),
+              ),
+              
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: ListTile(
+                  title: const Text("C H A T :)"),
+                  leading: const Icon(Icons.settings),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ChatHomePage()));
                   }
                 ),
               ),
