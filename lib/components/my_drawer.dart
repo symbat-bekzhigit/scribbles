@@ -9,6 +9,8 @@ import "package:messaging_app/pages/welcome_page.dart";
 import "package:messaging_app/services/auth/auth_service.dart";
 import "package:messaging_app/pages/settings_page.dart";
 import "package:messaging_app/pages/reminder_page.dart";
+import 'package:messaging_app/pages/pager_page.dart';
+
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -87,12 +89,27 @@ class MyDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: ListTile(
-                  title: const Text("C H A T :)"),
+                  title: const Text("C H A T"),
                   leading: const Icon(Icons.settings),
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.push(context, MaterialPageRoute(builder: (context) => ChatHomePage()));
                   }
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: ListTile(
+                  title: const Text('P A G I N G'),
+                  leading: const Icon(Icons.notifications),
+                  onTap: () {
+                  Navigator.pop(context);  // This will close the drawer
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const PagerPage()),
+                  );
+                },
                 ),
               ),
 
