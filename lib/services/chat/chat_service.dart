@@ -3,10 +3,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:messaging_app/models/message.dart';
 
+import 'package:logging/logging.dart';
+import '../auth/auth_service.dart';  // Ensure you have AuthService for current user check if needed
+
 class ChatService {
   // instance of firestore
   final FirebaseFirestore _firestore = FirebaseFirestore.instance; 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  final AuthService _authService;
+
+  ChatService(this._authService);
 
   //get user stream 
   Stream<List<Map<String, dynamic>>> getUsersStream() {
@@ -64,5 +71,40 @@ class ChatService {
     .collection("message")
     .orderBy("timestamp", descending: false)
     .snapshots();
+  }
+
+
+  // ADDED BY ME
+  
+  final _logger = Logger('ChatService');
+
+  Future<void> sendPagingNotification({
+  required String receiverID,
+  required String recipientEmail,
+  required String location,
+  required String notificationType,
+  required String customMessage
+}) async {
+  String senderEmail = _authService.getCurrentUser()?.email ?? "Unknown";
+  try {
+    // Writing directly to a recipient-specific document
+    await FirebaseFirestore.instance.collection('user_notifications').doc(receiverID).set({
+      'senderEmail': senderEmail,
+      'recipientEmail': recipientEmail,
+      'location': location,
+      'notificationType': notificationType,
+      'message': customMessage,
+      'timestamp': FieldValue.serverTimestamp(),
+      'alert': true  // Flag to indicate new notification for the client to trigger a local notification
+    });
+    debugPrint('Notification sent successfully');
+  } catch (e) {
+    debugPrint('Error sending notification: $e');
+    throw Exception('Failed to send notification');
+  }
+}
+  Future<void> sendNotification(Map<String, String> pageRequest) async {
+    _logger.info('Sending paging request to ${pageRequest['recipient']}');
+    // Logic to send the notification
   }
 }

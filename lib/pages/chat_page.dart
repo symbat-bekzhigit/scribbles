@@ -6,18 +6,29 @@ import "package:messaging_app/services/auth/auth_service.dart";
 import "package:messaging_app/services/chat/chat_service.dart";
 
 class ChatPage extends StatelessWidget {
+  // final String receiverEmail;
+  // final String receiverID;
+
+  // ChatPage({
+  //   super.key,
+  //   required this.receiverEmail,
+  //   required this.receiverID,
+  // });
+
+  // final TextEditingController _messageController = TextEditingController();
+  // final ChatService _chatService = ChatService(); 
+  // final AuthService _authService = AuthService();
+
   final String receiverEmail;
   final String receiverID;
-
-  ChatPage({
-    super.key,
-    required this.receiverEmail,
-    required this.receiverID,
-  });
-
-  final TextEditingController _messageController = TextEditingController();
-  final ChatService _chatService = ChatService(); 
   final AuthService _authService = AuthService();
+  late final ChatService _chatService;
+  final TextEditingController _messageController = TextEditingController();
+
+
+  ChatPage({super.key, required this.receiverEmail, required this.receiverID}) {
+    _chatService = ChatService(_authService);
+  }
   
   void sendMessage() async {
     if(_messageController.text.isNotEmpty) {
