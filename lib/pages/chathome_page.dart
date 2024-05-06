@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:messaging_app/components/my_drawer.dart";
 import "package:messaging_app/components/user_title.dart";
 import "package:messaging_app/pages/chat_page.dart";
 import "package:messaging_app/services/auth/auth_service.dart";
@@ -20,7 +19,6 @@ class ChatHomePage extends StatelessWidget {
         foregroundColor: Colors.grey,
         elevation: 0
         ),
-      drawer: const MyDrawer(),
       body: _buildUserList()
     );
   }

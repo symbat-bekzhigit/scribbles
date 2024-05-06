@@ -17,6 +17,7 @@ class WelcomePage extends StatelessWidget {
       body: const Center(
         child: Text("Welcome to Scribbles!", 
         style: TextStyle(fontSize: 30),),
+        
       )
     );
   }

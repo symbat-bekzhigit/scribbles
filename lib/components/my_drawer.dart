@@ -1,6 +1,5 @@
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
-import "package:messaging_app/pages/chat_page.dart";
 import "package:messaging_app/pages/chathome_page.dart";
 import "package:messaging_app/pages/ehr_page.dart";
 import "package:messaging_app/pages/login_page.dart";
