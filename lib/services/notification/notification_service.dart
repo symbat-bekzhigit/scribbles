@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:messaging_app/models/reminder.dart';
 
 class NotificationService {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
 
   Future<void> initNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
@@ -28,6 +30,8 @@ class NotificationService {
 
   Future<void> scheduleNotification(Reminder reminder) async {
     DateTime scheduledNotificationDateTime = reminder.reminderTime.toDate();
+    debugPrint('Scheduled notificstion for: $scheduledNotificationDateTime');
+    
     var androidDetails = const AndroidNotificationDetails(
       'reminder_id',
       'Reminders',
