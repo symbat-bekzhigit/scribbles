@@ -5,14 +5,14 @@ class Reminder {
   final String userID;
   final String title;
   final Timestamp reminderTime;
-  bool isNotificationEnabled; // This needs to be outside the constructor for default assignment
+  bool isNotificationEnabled; 
 
   Reminder({
     required this.id,
     required this.userID,
     required this.title,
     required this.reminderTime,
-    this.isNotificationEnabled = true, // Correct placement of default value
+    this.isNotificationEnabled = true, 
   });
 
   set id(String id) {}

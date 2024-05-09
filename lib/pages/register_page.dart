@@ -4,7 +4,7 @@ import "package:messaging_app/components/my_button.dart";
 import "package:messaging_app/components/my_textfield.dart";
 
 class RegisterPage extends StatelessWidget{
-    //email and pwd controllers
+  //email and pwd controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _pwdController = TextEditingController();
   final TextEditingController _confirmPwdController = TextEditingController();

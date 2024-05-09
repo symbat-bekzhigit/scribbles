@@ -20,7 +20,7 @@ class _AIPageState extends State<AIPage> {
   String _response = 'Press the button to get a response';
 
   Future<String?> fetchChatGPTCompletion(String prompt) async {
-    final String apiKey = 'sk-proj-fobFglPNavxy7pdon3pQT3BlbkFJScG4WHSeUJVSSiMFSQqP'; // add api key here, can't push with it.
+    final String apiKey = 'api_key'; // add api key here, can't push with it.
     final String model = 'gpt-3.5-turbo-instruct';
     final String endpoint = 'https://api.openai.com/v1/completions';
     final Map<String, String> headers = {
@@ -46,8 +46,6 @@ class _AIPageState extends State<AIPage> {
           jsonResponse['choices'][0]['text']; 
       return completion;
     } else {
-      // print('Response status: ${response.statusCode}');
-      // print('Response body: ${response.body}');
       throw Exception('Failed to load completion');
     }
   }
@@ -75,9 +73,6 @@ class _AIPageState extends State<AIPage> {
       });
     }
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {

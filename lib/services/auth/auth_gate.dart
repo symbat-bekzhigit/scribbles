@@ -10,7 +10,7 @@ class AuthGate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final NotificationService _notificationService = NotificationService();
+    final NotificationService notificationService = NotificationService();
 
     return Scaffold(
       body: StreamBuilder(
@@ -19,9 +19,9 @@ class AuthGate extends StatelessWidget {
           if (snapshot.hasData) {
             // If a user is authenticated, listen to their notification document
             User user = snapshot.data as User;
-            _notificationService.listenToNotificationDocument(user.uid);
+            notificationService.listenToNotificationDocument(user.uid);
 
-            return WelcomePage();
+            return const WelcomePage();
           } else {
             return const LoginOrRegister();
           }

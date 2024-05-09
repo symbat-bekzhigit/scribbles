@@ -1,8 +1,6 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import '../../main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -44,12 +42,9 @@ class NotificationService {
         String type = data['notificationType'] ?? "General";
 
         debugPrint("Preparing to show notification: $message from $sender");
-        // _showNotification(message, sender, location, type);
         // Check if the current user is the recipient
         if (_auth.currentUser?.email == recipient) {
           showNotificationDialog('Incoming Paging Request from $sender', 'Location: $location\nType: $type\nMessage: $message\n');
-          // _showNotification(message, sender, location, type);
-
         }
         FirebaseFirestore.instance.collection('user_notifications').doc(userId).update({'alert': false});
         debugPrint("Notification alert flag reset for user $userId");
@@ -79,13 +74,6 @@ class NotificationService {
       );
     }
   }
-
-  // // Update this method to call showNotificationDialog
-  // Future<void> _showNotification(String message, String sender, String location, String type) async {
-  //   // Now calling showNotificationDialog instead of flutterLocalNotificationsPlugin.show
-  //   showNotificationDialog('Notification from $sender', 'Message: $message\nType: $type\nLocation: $location');
-  // }
-  
 
   // Other methods remain the same...
   Future onSelectNotification(String? payload) async {

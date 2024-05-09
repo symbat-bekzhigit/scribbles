@@ -1,14 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../services/chat/chat_service.dart';
 import '../services/auth/auth_service.dart';
-import 'package:messaging_app/models/page_request.dart';
-import 'package:messaging_app/services/paging/paging_service.dart';
 
 class PagerPage extends StatefulWidget {
-  const PagerPage({Key? key}) : super(key: key);
+  const PagerPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PagerPageState createState() => _PagerPageState();
 }
 
@@ -155,16 +153,6 @@ class _PagerPageState extends State<PagerPage> {
       return;
     }
 
-    PagerRequest pagerRequest = PagerRequest(
-      id: '', // ID will be set by Firestore when creating the document
-      recipientEmail: _selectedRecipientEmail!,
-      senderID: _authService.getCurrentUser()?.uid ?? '',
-      senderEmail: _authService.getCurrentUser()?.email ?? '',
-      timestamp: Timestamp.now(),
-      notificationType: _selectedType!,
-      message: _messageController.text,
-      location: _selectedLocation!
-    );
 
     // Assuming PagingService handles the logic to write to Firestore
     _chatService.sendPagingNotification(

@@ -4,18 +4,9 @@ import "package:messaging_app/pages/chat_page.dart";
 import "package:messaging_app/services/auth/auth_service.dart";
 import "package:messaging_app/services/chat/chat_service.dart";
 
-import "package:cloud_firestore/cloud_firestore.dart";
-import "package:messaging_app/services/paging/paging_service.dart";
-import "package:messaging_app/services/notification/notification_service_paging.dart";
-
-
 
 // ignore: must_be_immutable
 class ChatHomePage extends StatelessWidget {
-  // ChatHomePage({super.key});
-
-  // final ChatService _chatService = ChatService();
-  // final AuthService _authService = AuthService();
 
   final AuthService _authService = AuthService();
   late ChatService _chatService;

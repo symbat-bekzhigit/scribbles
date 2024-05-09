@@ -48,7 +48,7 @@ class LoginPage extends StatelessWidget {
             const SizedBox(height: 50),
             // welcome back message
             Text(
-              "Welcome back, you've been missed!",
+              "Welcome back, Doctors and Nurses!",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
                 fontSize: 16,

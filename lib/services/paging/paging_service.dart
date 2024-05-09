@@ -20,7 +20,6 @@ class PagingService {
 }
 
 void saveTokenToDatabase(String token) {
-  // Assume the user is logged in for this example
   String userId = FirebaseAuth.instance.currentUser!.uid;
 
   FirebaseFirestore.instance

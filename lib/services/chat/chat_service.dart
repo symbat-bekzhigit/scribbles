@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:messaging_app/models/message.dart';
 
 import 'package:logging/logging.dart';
-import '../auth/auth_service.dart';  // Ensure you have AuthService for current user check if needed
+import '../auth/auth_service.dart';  
 
 class ChatService {
   // instance of firestore
@@ -72,9 +72,6 @@ class ChatService {
     .orderBy("timestamp", descending: false)
     .snapshots();
   }
-
-
-  // ADDED BY ME
   
   final _logger = Logger('ChatService');
 
